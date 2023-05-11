@@ -26,8 +26,8 @@ public class Product {
     private String description;
     private Double price;
     private String foodType;
-    private Integer categoryInfoId;
-    private Integer popupInfoId;
+    private Long categoryInfoId;
+    private Long popupInfoId;
     private Integer locationPage;
     private Integer locationRow;
     private Integer locationColumn;

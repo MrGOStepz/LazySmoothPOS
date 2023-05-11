@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class OrderSummary {
-    private Integer productId;
-    private Integer popupDetailId;
+    private Long productId;
+    private Long popupDetailId;
     private Integer quantity;
     private Double amount;
 }

@@ -1,0 +1,4 @@
+LazySmoothServer/.idea/*
+LazySmoothServer/.gradle/*
+LazySmoothServer/build/*
+LazySmoothServer/lazy_smooth-log*
