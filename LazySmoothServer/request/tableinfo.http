@@ -1,0 +1,24 @@
+POST http://localhost:8080/api/v1/tableinfo/update/status
+Content-Type: application/json
+{
+    "name": "1",
+    "status": "COOK"
+}
+
+###
+GET http://localhost:8080/api/v1/tableinfo/1
+Accept: application/json
+
+
+###
+GET http://localhost:8080/api/v1/tableinfo/all
+Accept: application/json
+
+###
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{}
+
+###
+

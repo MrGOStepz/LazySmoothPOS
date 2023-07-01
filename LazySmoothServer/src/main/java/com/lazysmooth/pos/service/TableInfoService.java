@@ -26,7 +26,7 @@ public class TableInfoService {
         try {
             List<TableInfo> tempTableInfo = repository.findAll();
             List<TableInfo> tableInfoList = tempTableInfo.stream().sorted(
-                    Comparator.comparingInt(TableInfo::getOrder)).toList();
+                    Comparator.comparingLong(TableInfo::getTableInfoId)).toList();
             logger.debug("Get All TableInfo: {}", tableInfoList);
             return tableInfoList;
         } catch (Exception ex) {
@@ -51,18 +51,18 @@ public class TableInfoService {
     public TableInfo add(TableInfo tableInfo) {
         try {
             repository.save(tableInfo);
-            logger.info("Add new TableInfo: {} \nSuccessfully.", tableInfo);
+            logger.info("Add new TableInfo: {} Successfully.", tableInfo);
             return tableInfo;
         } catch (Exception ex) {
             logger.error("Cannot add new TableInfo {}", ex.getMessage());
-            throw ex;
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 
 
     public void update(TableInfo tableInfo) {
         try {
-            repository.updateTableInfo(tableInfo.getName(), tableInfo.getStatus(), tableInfo.getOrder());
+            repository.updateTableInfo(tableInfo.getTableInfoId(), tableInfo.getName(), tableInfo.getStatus(), tableInfo.getOrderInfoId());
             logger.info("Updated TableInfo {}", tableInfo);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
@@ -73,7 +73,7 @@ public class TableInfoService {
     public void updateStatus(String status, String name) {
         try {
             repository.updateTableInfoStatusByName(status, name);
-            logger.info("Updated TableInfo Name: {}, Status: {}", name, status);
+            logger.info("Updated TableInfo Status Name: {}, Status: {}", name, status);
         } catch (Exception ex) {
             logger.error(ex.getMessage());
             throw new LazySmoothException(ex.getMessage());

@@ -1,5 +1,6 @@
 package com.lazysmooth.pos.model.db;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,13 @@ public class TableInfo {
 //    )
 
     @Id
+    @Column(name="table_info_id")
+    private Long tableInfoId;
+
     private String name;
+
     private String status;
-    private Integer order;
+
+    @Column(name="order_info_id")
+    private Integer orderInfoId;
 }

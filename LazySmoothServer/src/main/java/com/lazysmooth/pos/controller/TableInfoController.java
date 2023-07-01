@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "api/v1/table")
+@RequestMapping(path = "api/v1/tableinfo")
 public class TableInfoController {
     private static final Logger logger = LogManager.getLogger(TableInfoController.class);
 
@@ -33,7 +33,7 @@ public class TableInfoController {
 
     @GetMapping(path = "/{name}")
     @ResponseBody
-    public ResponseEntity<TableInfo> getTableCurrentStateById(@PathVariable String name) {
+    public ResponseEntity<TableInfo> getTableInfoByName(@PathVariable String name) {
         TableInfo tableInfo = tableInfoService.getTableInfo(name);
         return new ResponseEntity<>(tableInfo, HttpStatus.OK);
     }
@@ -45,7 +45,7 @@ public class TableInfoController {
         return new ResponseEntity<>(tableInfoService.add(request), HttpStatus.ACCEPTED);
     }
 
-    @PutMapping(path = "/update")
+    @PostMapping(path = "/update")
     public ResponseEntity<String> updateTableInfo(@RequestBody String jsonReq) {
         TableInfo request = null;
         try {
@@ -54,6 +54,7 @@ public class TableInfoController {
             String response = String.format("Updated TableInfo: %s Successfully.", request);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UtilsConverterException ex) {
+            logger.error(ex.getMessage());
             String errorMessage = String.format("Cannot Convert Object from Request: %s.", ex.getMessage());
             ErrorResponse errorResponse = new ErrorResponse(0, errorMessage, ex.getMessage());
             return new ResponseEntity<>(errorResponse.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,7 +65,7 @@ public class TableInfoController {
         }
     }
 
-    @PutMapping(path = "/update/status")
+    @PostMapping(path = "/update/status")
     public ResponseEntity<String> updateTableInfoStatus(@RequestBody String jsonReq) {
         TableStatusRequest request = null;
         try {
