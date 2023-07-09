@@ -24,8 +24,7 @@ public class CategoryInfoService {
             logger.debug("Get All TableInfo: {}", categoryInfoList);
             return categoryInfoList;
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            throw ex;
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 
@@ -33,11 +32,10 @@ public class CategoryInfoService {
         try {
             Optional<CategoryInfo> opt = repository.findById(id);
             CategoryInfo categoryInfo = opt.orElseGet(CategoryInfo::new);
-            logger.info("Get CategoryInfo: {}", categoryInfo);
+            logger.debug("Get CategoryInfo: {}", categoryInfo);
             return categoryInfo;
-        } catch (LazySmoothException ex) {
-            logger.error(ex.getMessage());
-            throw ex;
+        } catch (Exception ex) {
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 
@@ -49,7 +47,6 @@ public class CategoryInfoService {
             logger.info("Add new CategoryInfo: {} \nSuccessfully.", categoryInfo);
             return categoryInfo;
         } catch (Exception ex) {
-            logger.error("Cannot add new TableInfo {}", ex.getMessage());
             throw new LazySmoothException(ex.getMessage());
         }
 
@@ -60,8 +57,7 @@ public class CategoryInfoService {
             repository.save(categoryInfo);
             logger.info("Updated CategoryInfo: {}. Successfully", categoryInfo);
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            throw ex;
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 
@@ -70,8 +66,7 @@ public class CategoryInfoService {
             repository.deleteById(id);
             logger.info("Deleted CategoryId: {} Successfully.", id);
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            throw ex;
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 }

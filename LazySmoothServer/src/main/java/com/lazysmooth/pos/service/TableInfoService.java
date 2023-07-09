@@ -1,6 +1,5 @@
 package com.lazysmooth.pos.service;
 
-
 import com.lazysmooth.pos.db.repository.TableInfoRepository;
 import com.lazysmooth.pos.exception.LazySmoothException;
 import com.lazysmooth.pos.model.db.TableInfo;
@@ -30,8 +29,7 @@ public class TableInfoService {
             logger.debug("Get All TableInfo: {}", tableInfoList);
             return tableInfoList;
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            throw ex;
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 
@@ -40,11 +38,10 @@ public class TableInfoService {
             Optional<List<TableInfo>> opt = Optional.ofNullable(repository.findByName(name));
             List<TableInfo> tableInfoList = opt.orElseGet(ArrayList::new);
             TableInfo tableInfo = tableInfoList.get(0);
-            logger.info("Get TableInfoName: {}, TableInfo: {}", name, tableInfo);
+            logger.debug("Get TableInfoName: {}, TableInfo: {}", name, tableInfo);
             return tableInfo;
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
-            throw ex;
+            throw new LazySmoothException(ex.getMessage());
         }
     }
 
@@ -54,7 +51,6 @@ public class TableInfoService {
             logger.info("Add new TableInfo: {} Successfully.", tableInfo);
             return tableInfo;
         } catch (Exception ex) {
-            logger.error("Cannot add new TableInfo {}", ex.getMessage());
             throw new LazySmoothException(ex.getMessage());
         }
     }
@@ -65,7 +61,6 @@ public class TableInfoService {
             repository.updateTableInfo(tableInfo.getTableInfoId(), tableInfo.getName(), tableInfo.getStatus(), tableInfo.getOrderInfoId());
             logger.info("Updated TableInfo {}", tableInfo);
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
             throw new LazySmoothException(ex.getMessage());
         }
     }
@@ -75,8 +70,17 @@ public class TableInfoService {
             repository.updateTableInfoStatusByName(status, name);
             logger.info("Updated TableInfo Status Name: {}, Status: {}", name, status);
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
             throw new LazySmoothException(ex.getMessage());
         }
     }
+
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+            logger.info("Deleted TableInfo Id: {} Successfully.", id);
+        } catch (Exception ex) {
+            throw new LazySmoothException(ex.getMessage());
+        }
+    }
+
 }
