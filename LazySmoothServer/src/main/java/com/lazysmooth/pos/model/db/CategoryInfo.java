@@ -1,12 +1,10 @@
 package com.lazysmooth.pos.model.db;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 
 @NoArgsConstructor
@@ -15,7 +13,16 @@ import lombok.NoArgsConstructor;
 @Entity(name = "category_info")
 public class CategoryInfo {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(
+            strategy = GenerationType.AUTO,
+            generator = "native"
+    )
+    @GenericGenerator(
+            name = "native"
+    )
+    @Column(
+            name = "category_info_id"
+    )
     private Long id;
     private String name;
     private String imagePath;

@@ -35,7 +35,7 @@ public class CategoryInfoService {
             CategoryInfo categoryInfo = opt.orElseGet(CategoryInfo::new);
             logger.info("Get CategoryInfo: {}", categoryInfo);
             return categoryInfo;
-        } catch (Exception ex) {
+        } catch (LazySmoothException ex) {
             logger.error(ex.getMessage());
             throw ex;
         }

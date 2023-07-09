@@ -1,15 +1,15 @@
 package com.lazysmooth.pos.controller;
 
+import com.lazysmooth.pos.exception.LazySmoothException;
 import com.lazysmooth.pos.model.db.CategoryInfo;
 import com.lazysmooth.pos.service.CategoryInfoService;
 import com.lazysmooth.pos.util.Utils;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -38,9 +38,13 @@ class CategoryInfoController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewCategoryInfo(@RequestBody String jsonReq) {
-        CategoryInfo categoryInfo = (CategoryInfo) Utils.convertJsonToObject(jsonReq, CategoryInfo.class);
-        categoryInfoService.add(categoryInfo);
-        return new ResponseEntity<>(String.format("Add new categoryInfo successfully: %s", categoryInfo), HttpStatus.CREATED);
+        try {
+            CategoryInfo categoryInfo = (CategoryInfo) Utils.convertJsonToObject(jsonReq, CategoryInfo.class);
+            categoryInfoService.add(categoryInfo);
+            return new ResponseEntity<>(String.format("Add new categoryInfo successfully: %s", categoryInfo), HttpStatus.CREATED);
+        } catch (LazySmoothException le) {
+            return new ResponseEntity<>(String.format("Error: %s", le.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping(path = "/update")
