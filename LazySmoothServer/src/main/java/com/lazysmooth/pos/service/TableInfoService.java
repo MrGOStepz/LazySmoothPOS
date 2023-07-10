@@ -25,7 +25,7 @@ public class TableInfoService {
         try {
             List<TableInfo> tempTableInfo = repository.findAll();
             List<TableInfo> tableInfoList = tempTableInfo.stream().sorted(
-                    Comparator.comparingLong(TableInfo::getTableInfoId)).toList();
+                    Comparator.comparingLong(TableInfo::getId)).toList();
             logger.debug("Get All TableInfo: {}", tableInfoList);
             return tableInfoList;
         } catch (Exception ex) {
@@ -58,7 +58,7 @@ public class TableInfoService {
 
     public void update(TableInfo tableInfo) {
         try {
-            repository.updateTableInfo(tableInfo.getTableInfoId(), tableInfo.getName(), tableInfo.getStatus(), tableInfo.getOrderInfoId());
+            repository.updateTableInfo(tableInfo.getId(), tableInfo.getName(), tableInfo.getStatus(), tableInfo.getOrderInfoId());
             logger.info("Updated TableInfo {}", tableInfo);
         } catch (Exception ex) {
             throw new LazySmoothException(ex.getMessage());

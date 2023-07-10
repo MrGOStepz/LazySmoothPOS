@@ -34,8 +34,11 @@ public class TableInfo {
     @GenericGenerator(
             name = "native"
     )
-    @Column(name="table_info_id")
-    private Long tableInfoId;
+    @Column(
+            name = "table_info_id",
+            updatable = false
+    )
+    private Long id;
 
     private String name;
 

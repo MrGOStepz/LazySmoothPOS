@@ -21,7 +21,7 @@ public class CategoryInfoService {
     public List<CategoryInfo> getAll() {
         try {
             List<CategoryInfo> categoryInfoList = repository.findAll();
-            logger.debug("Get All TableInfo: {}", categoryInfoList);
+            logger.debug("Get All CategoryInfo: {}", categoryInfoList);
             return categoryInfoList;
         } catch (Exception ex) {
             throw new LazySmoothException(ex.getMessage());

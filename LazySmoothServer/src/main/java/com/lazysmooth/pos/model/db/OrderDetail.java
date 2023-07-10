@@ -1,9 +1,6 @@
 package com.lazysmooth.pos.model.db;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +20,10 @@ public class OrderDetail {
     )
     @GenericGenerator(
             name = "native"
+    )
+    @Column(
+            name = "order_detail_id",
+            updatable = false
     )
     private Long id;
     private Long orderInfoId;
