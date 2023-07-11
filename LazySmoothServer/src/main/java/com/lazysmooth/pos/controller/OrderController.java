@@ -4,6 +4,9 @@ package com.lazysmooth.pos.controller;
 import com.lazysmooth.pos.exception.LazySmoothException;
 import com.lazysmooth.pos.exception.UtilsConverterException;
 import com.lazysmooth.pos.model.db.OrderInfo;
+import com.lazysmooth.pos.model.request.OrderRequest;
+import com.lazysmooth.pos.model.response.OrderDetailInfoResponse;
+import com.lazysmooth.pos.model.response.OrderResponse;
 import com.lazysmooth.pos.service.OrderService;
 import com.lazysmooth.pos.util.Utils;
 import lombok.RequiredArgsConstructor;
@@ -166,13 +169,58 @@ public class OrderController extends AbstractController {
     public ResponseEntity<String> deleteOrderDetail(@PathVariable Long id) {
         try {
             orderService.deleteOrderInfo(id);
-            String response = String.format("Delete OrderInfo Id: %d completed.", id);
+            String response = String.format("Delete OrderDetail Id: %d completed.", id);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (LazySmoothException ex) {
-            String errorMessage = String.format("Cannot delete OrderInfo Id: %d", id);
+            String errorMessage = String.format("Cannot delete OrderDetail Id: %d", id);
             logError(errorMessage, ex.getMessage());
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @PostMapping(path = "/order")
+    @ResponseBody
+    public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
+        try {
+            OrderRequest orderRequest = (OrderRequest) Utils.convertJsonStringToObject(jsonReq, OrderRequest.class);
+            OrderInfo orderInfo = orderService.addOrder(orderRequest);
+            String response = String.format("Add new order successfully: %s", orderInfo.toString());
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } catch (UtilsConverterException ex) {
+            String errorMessage = String.format("Cannot convert Object from Request: %s.", jsonReq);
+            logError(errorMessage, ex.getMessage());
+            return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (LazySmoothException ex) {
+            String errorMessage = String.format("Cannot Add new Order: %s.", jsonReq);
+            logError(errorMessage, ex.getMessage());
+            return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping(path = "/cook")
+    @ResponseBody
+    public ResponseEntity<String> getCookOrder() {
+        try {
+            List<OrderResponse> orderResponses = orderService.getListOrderCook();
+            String response = Utils.convertJsonObjecToString(orderResponses);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (LazySmoothException ex) {
+            String errorMessage = "Cannot get OrderInfo by Cook Status";
+            logError(errorMessage, ex.getMessage());
+            return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(path = "/table/{tableName}")
+    @ResponseBody
+    public ResponseEntity<String> getOrderByTableName(@PathVariable String tableName) {
+        try {
+            OrderDetailInfoResponse orderDetailInfoResponses = orderService.getListOrderByTableName(tableName);
+            String response = Utils.convertJsonObjecToString(orderDetailInfoResponses);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (LazySmoothException ex) {
+            String errorMessage = "Cannot get OrderInfo by Cook Status";
+            logError(errorMessage, ex.getMessage());
+            return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

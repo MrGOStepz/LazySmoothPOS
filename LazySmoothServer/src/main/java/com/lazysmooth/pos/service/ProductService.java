@@ -7,18 +7,34 @@ import com.lazysmooth.pos.model.db.Product;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     private static final Logger logger = LogManager.getLogger(ProductService.class);
 
+    private final Map<Long, Product> products = new HashMap<>();
     private final ProductRepository repository;
 
+    @Autowired
+    public void init() {
+        List<Product> productList = repository.findAll();
+        updateProductCache(productList);
+    }
+
+    private void updateProductCache(List<Product> productList) {
+        for (Product product : productList) {
+            products.put(product.getId(), product);
+        }
+    }
+
+    public Product getProductByCache(Long id) {
+        return products.get(id);
+    }
     public List<Product> getAll() {
         try {
             List<Product> productList = repository.findAll();
