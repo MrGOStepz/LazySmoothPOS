@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 abstract class AbstractController {
     private static final Logger logger = LogManager.getLogger(AbstractController.class);
+    static final String CAN_NOT_CONVERT_OBJECT = "Cannot convert Object from Request: %s.";
 
     void logError(String errorMessage, String detail) {
         logger.error("{}:{}", errorMessage, detail);

@@ -1,6 +1,5 @@
 package com.lazysmooth.pos.controller;
 
-
 import com.lazysmooth.pos.exception.LazySmoothException;
 import com.lazysmooth.pos.exception.UtilsConverterException;
 import com.lazysmooth.pos.model.db.OrderInfo;
@@ -21,6 +20,7 @@ import java.util.List;
 @RequestMapping(path = "api/v1/order")
 public class OrderController extends AbstractController {
     private final OrderService orderService;
+    static final String CAN_NOT_CONVERT_OBJECT = "Cannot convert Object from Request: %s.";
 
     @GetMapping(path = "/all")
     @ResponseBody
@@ -59,7 +59,7 @@ public class OrderController extends AbstractController {
             String response = String.format("Add new orderInfo successfully: %s", orderInfo);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (UtilsConverterException ex) {
-            String errorMessage = String.format("Cannot convert Object from Request: %s.", jsonReq);
+            String errorMessage = String.format(CAN_NOT_CONVERT_OBJECT, jsonReq);
             logError(errorMessage, ex.getMessage());
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (LazySmoothException ex) {
@@ -77,7 +77,7 @@ public class OrderController extends AbstractController {
             String response = String.format("Update OrderInfo: %s completed.", orderInfo);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UtilsConverterException ex) {
-            String errorMessage = String.format("Cannot convert Object from Request: %s.", jsonReq);
+            String errorMessage = String.format(CAN_NOT_CONVERT_OBJECT, jsonReq);
             logError(errorMessage, ex.getMessage());
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (LazySmoothException ex) {
@@ -137,7 +137,7 @@ public class OrderController extends AbstractController {
             String response = String.format("Add new orderInfo successfully: %s", orderInfo);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (UtilsConverterException ex) {
-            String errorMessage = String.format("Cannot convert Object from Request: %s.", jsonReq);
+            String errorMessage = String.format(CAN_NOT_CONVERT_OBJECT, jsonReq);
             logError(errorMessage, ex.getMessage());
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (LazySmoothException ex) {
@@ -155,7 +155,7 @@ public class OrderController extends AbstractController {
             String response = String.format("Update OrderInfo: %s completed.", orderInfo);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (UtilsConverterException ex) {
-            String errorMessage = String.format("Cannot convert Object from Request: %s.", jsonReq);
+            String errorMessage = String.format(CAN_NOT_CONVERT_OBJECT, jsonReq);
             logError(errorMessage, ex.getMessage());
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (LazySmoothException ex) {
@@ -187,7 +187,7 @@ public class OrderController extends AbstractController {
             String response = String.format("Add new order successfully: %s", orderInfo.toString());
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (UtilsConverterException ex) {
-            String errorMessage = String.format("Cannot convert Object from Request: %s.", jsonReq);
+            String errorMessage = String.format(CAN_NOT_CONVERT_OBJECT, jsonReq);
             logError(errorMessage, ex.getMessage());
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (LazySmoothException ex) {
@@ -196,6 +196,7 @@ public class OrderController extends AbstractController {
             return new ResponseEntity<>(generateErrorResponse(0, errorMessage, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping(path = "/cook")
     @ResponseBody
     public ResponseEntity<String> getCookOrder() {

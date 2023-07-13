@@ -23,8 +23,8 @@ public class ProductController extends AbstractController {
     @ResponseBody
     public ResponseEntity<String> getAllProduct() {
         try {
-            List<Product> tableInfo = productService.getAll();
-            String response = Utils.convertJsonObjecToString(tableInfo);
+            List<Product> productList = productService.getAll();
+            String response = Utils.convertJsonObjecToString(productList);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (LazySmoothException ex) {
             String errorMessage = "Cannot Get All TableInfo";
