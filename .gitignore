@@ -2,3 +2,11 @@ LazySmoothServer/.idea/*
 LazySmoothServer/.gradle/*
 LazySmoothServer/build/*
 LazySmoothServer/lazy_smooth-log*
+ClientOrder/client_order/android/
+ClientOrder/client_order/ios/
+ClientOrder/client_order/pubspec.lock
+ClientOrder/client_order/linux/
+ClientOrder/client_order/macos/
+ClientOrder/client_order/windows/
+ClientOrder/client_order/web/
+ClientOrder/client_order/.metadata
