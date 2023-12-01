@@ -4,35 +4,27 @@ package com.lazysmooth.pos.service;
 import com.lazysmooth.pos.db.repository.ProductRepository;
 import com.lazysmooth.pos.exception.LazySmoothException;
 import com.lazysmooth.pos.model.db.Product;
+import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 @AllArgsConstructor
-public class ProductService {
+@Slf4j
+public class ProductService{
     private static final Logger logger = LogManager.getLogger(ProductService.class);
 
     private final Map<Long, Product> products = new HashMap<>();
     private final ProductRepository repository;
 
-//    @Autowired
-//    public void init() {
-//        List<Product> productList = repository.findAll();
-//        updateProductCache(productList);
-//    }
-    
-//    ProductService() {
-//        List<Product> productList = repository.findAll();
-//        updateProductCache(productList);
-//    }
-
-    private void updateProductCache(List<Product> productList) {
+    @PostConstruct
+    public void init() {
+        List<Product> productList = repository.findAll();
         for (Product product : productList) {
             products.put(product.getId(), product);
         }
@@ -67,6 +59,7 @@ public class ProductService {
             var retObject = repository.save(product);
             repository.flush();
             product.setId(retObject.getId());
+            products.put(retObject.getId(), product);
             logger.info("Add new Product: {} \nSuccessfully.", product);
             return product;
         } catch (Exception ex) {
@@ -78,6 +71,7 @@ public class ProductService {
     public void update(Product product) {
         try {
             repository.save(product);
+            products.put(product.getId(), product);
             logger.info("Updated Product: {}. Successfully", product);
         } catch (Exception ex) {
             throw new LazySmoothException(ex.getMessage());
@@ -87,6 +81,7 @@ public class ProductService {
     public void delete(Long id) {
         try {
             repository.deleteById(id);
+            products.remove(id);
             logger.info("Deleted Product: {} Successfully.", id);
         } catch (Exception ex) {
             throw new LazySmoothException(ex.getMessage());
