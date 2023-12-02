@@ -29,16 +29,30 @@ public class Product {
             updatable = false
     )
     private Long id;
+    @Column(
+            name = "name"
+    )
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "price")
     private Double price;
+    @Column(name = "food_type")
     private String foodType;
+    @Column(name = "category_info_id")
     private Long categoryInfoId;
+    @Column(name = "popup_info_id")
     private Long popupInfoId;
+    @Column(name = "location_page")
     private Integer locationPage;
+    @Column(name = "location_row")
     private Integer locationRow;
+    @Column(name = "location_column")
     private Integer locationColumn;
+    @Column(name = "stock")
     private Integer stock;
+    @Column(name = "image_path")
     private String imagePath;
+    @Column(name = "is_available")
     private Boolean isAvailable;
 }
