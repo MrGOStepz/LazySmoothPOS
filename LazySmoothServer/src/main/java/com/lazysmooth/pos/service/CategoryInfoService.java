@@ -43,7 +43,7 @@ public class CategoryInfoService {
         try {
             var retObject = repository.save(categoryInfo);
             repository.flush();
-            categoryInfo.setId(retObject.getId());
+            categoryInfo.setCategoryInfoId(retObject.getCategoryInfoId());
             logger.info("Add new CategoryInfo: {} \nSuccessfully.", categoryInfo);
             return categoryInfo;
         } catch (Exception ex) {

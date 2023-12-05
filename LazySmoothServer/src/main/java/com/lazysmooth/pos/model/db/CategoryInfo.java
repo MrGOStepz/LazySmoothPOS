@@ -23,7 +23,7 @@ public class CategoryInfo {
     @Column(
             name = "category_info_id"
     )
-    private Long id;
+    private Long categoryInfoId;
     private String name;
     private String imagePath;
 }

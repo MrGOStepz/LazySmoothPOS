@@ -1,13 +1,12 @@
 GET http://localhost:8080/api/v1/product/all
 Accept: application/json
 
-###
 ### Send POST request with json body
 POST http://localhost:8080/api/v1/product/add
 Content-Type: application/json
 
 {
-  "name": "main 1"
+    "name": "main 1"
 }
 
 ###
