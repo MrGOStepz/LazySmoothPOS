@@ -15,14 +15,14 @@ class _PaidWidgetState extends State<PaidWidget> {
   void _updateOrderPaid() {
    setState(() {
      Provider.of<OrderProvider>(context, listen: false).updateStatus();
-     Provider.of<OrderProvider>(context, listen: false).sendTableStatus();
+     // Provider.of<OrderProvider>(context, listen: false).sendTableStatus();
    });
   }
 
   @override
   Widget build(BuildContext context) {
 
-    stompClient.activate();
+    // stompClient.activate();
     return InkWell(
       child:
       DecoratedBox(

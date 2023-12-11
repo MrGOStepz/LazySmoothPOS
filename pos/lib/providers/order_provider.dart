@@ -222,15 +222,15 @@ class OrderProvider with ChangeNotifier {
     }
   }
 
-  void sendTableStatus() {
-    TableInfo tableInfo = TableInfo(0, _tableName, 'Free', 0);
-
-    var request = jsonEncode(tableInfo.toJson());
-    stompClient.send(
-      destination: '/app/table/update',
-      body: request,
-    );
-  }
+  // void sendTableStatus() {
+  //   TableInfo tableInfo = TableInfo(0, _tableName, 'Free', 0);
+  //
+  //   var request = jsonEncode(tableInfo.toJson());
+  //   stompClient.send(
+  //     destination: '/app/table/update',
+  //     body: request,
+  //   );
+  // }
 
   void addAndRemoveOrderItem(int orderDetailId, int quantity, double price) {
     OrderDetail orderDetail = tempOrderDetailItems
