@@ -1,0 +1,1 @@
+enum ScreenState { tableScreen, menuScreen, dashboardScreen, loginScreen}

@@ -21,13 +21,13 @@ void onConnect(StompFrame frame) {
 }
 
 final stompClient = StompClient(
-    config: StompConfig(
-      url: 'http://${GlobalConfiguration().get(
-          "server_endpoint")}/gs-guide-websocket',
-      onConnect: onConnect,
-      onWebSocketError: (dynamic error) => print(error.toString()),
-    ));
-
+  config: StompConfig(
+    url:
+        'http://${GlobalConfiguration().get("server_endpoint")}/gs-guide-websocket',
+    onConnect: onConnect,
+    onWebSocketError: (dynamic error) => print(error.toString()),
+  ),
+);
 
 void main() {
 //   // stompClient2.activate();

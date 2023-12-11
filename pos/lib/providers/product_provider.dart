@@ -44,7 +44,4 @@ class ProductProvider with ChangeNotifier {
     _items = loadedProduct.toList();
     notifyListeners();
   }
-
-
-
 }

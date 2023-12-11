@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pos/models/enum/screen_state.dart';
+import 'package:pos/screens/table_screen.dart';
+import 'package:pos/widgets/summary_screen/summary_screen.dart';
+import 'package:pos/widgets/tab_bar_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../models/product_model.dart';
 import '../providers/order_provider.dart';
 import '../providers/product_provider.dart';
 import '../providers/tables_provider.dart';
-import '../widgets/paid_widget.dart';
 import 'main_screen.dart';
-import 'order_screen.dart';
 
 class OverViewScreen extends StatefulWidget {
   const OverViewScreen({Key? key}) : super(key: key);
@@ -26,6 +28,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
   List<Product> productList = [];
 
   final double _totalPrice = 0;
+  ScreenState _screenState = ScreenState.tableScreen;
 
   @override
   void initState() {
@@ -74,6 +77,29 @@ class _OverViewScreenState extends State<OverViewScreen> {
     });
   }
 
+  void _changeScreenState(ScreenState screenState) {
+    setState(() {
+      _screenState = screenState;
+    });
+  }
+
+  Widget _changeScreen() {
+    Widget screen;
+    if (_screenState == ScreenState.tableScreen) {
+      screen = TableScreen();
+    } else {
+      screen = SummaryScreen();
+    }
+    return Expanded(
+      flex: 9,
+      child: SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height,
+        child: screen,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context, listen: true);
@@ -82,63 +108,65 @@ class _OverViewScreenState extends State<OverViewScreen> {
         child: Row(
           children: [
             Expanded(
-              flex: 7,
+              flex: 1,
               child: SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
-                child: MainScreen(
-                  productList: productList,
+                child: TabBarWidget(
+                  screenState: _changeScreenState,
                 ),
               ),
             ),
-            Expanded(
-              flex: 3,
-              child: SizedBox(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: OrderScreen(
-                        productList: productList,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Center(
-                                child: Text(
-                              'ราคา ${orderProvider.totalPrice}',
-                              style: const TextStyle(fontSize: 40),
-                            )),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: Center(
-                              child: TextButton(
-                                onPressed: () {
-                                  orderProvider.updateItem();
-                                  // _updateOrderItem
-                                },
-                                child: const Text('Update'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                            width: double.infinity, child: PaidWidget()))
-                  ],
-                ),
-              ),
-            ),
+            _changeScreen(),
+
+            // Expanded(
+            //   flex: 3,
+            //   child: SizedBox(
+            //     width: double.infinity,
+            //     height: MediaQuery.of(context).size.height,
+            //     child: Column(
+            //       children: [
+            //         Expanded(
+            //           flex: 8,
+            //           child: OrderScreen(
+            //             productList: productList,
+            //           ),
+            //         ),
+            //         Expanded(
+            //           flex: 1,
+            //           child: Row(
+            //             children: [
+            //               Expanded(
+            //                 flex: 2,
+            //                 child: Center(
+            //                     child: Text(
+            //                   'ราคา ${orderProvider.totalPrice}',
+            //                   style: const TextStyle(fontSize: 40),
+            //                 )),
+            //               ),
+            //               Expanded(
+            //                 flex: 1,
+            //                 child: Center(
+            //                   child: TextButton(
+            //                     onPressed: () {
+            //                       orderProvider.updateItem();
+            //                       // _updateOrderItem
+            //                     },
+            //                     child: const Text('Update'),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //         const Expanded(
+            //             flex: 1,
+            //             child: SizedBox(
+            //                 width: double.infinity, child: PaidWidget()))
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
