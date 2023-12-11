@@ -1,9 +1,10 @@
 class Product {
-  int id = 0;
+  int productId = 0;
   String name = '';
   double price = 0.0;
   String foodType = "";
   int categoryInfoId = 0;
+  int popupInfoId = 0;
   int locationPage = 0;
   int locationRow = 0;
   int locationColumn = 0;
@@ -11,11 +12,12 @@ class Product {
   String imagePath = "";
   bool isAvailable = false;
 
-  Product(this.id,
+  Product(this.productId,
       this.name,
       this.price,
       this.foodType,
       this.categoryInfoId,
+      this.popupInfoId,
       this.locationPage,
       this.locationRow,
       this.locationColumn,
@@ -25,23 +27,34 @@ class Product {
 
 
   Product.fromJson(Map<String, dynamic> json) {
-    id = json['productId'];
+    productId = json['productId'];
     name = json['name'];
-    price = json['status'];
+    price = json['price'];
     foodType = json['foodType'];
     categoryInfoId = json['categoryInfoId'];
+    popupInfoId = json['popupInfoId'];
     locationPage = json['locationPage '];
     locationRow = json['locationRow'];
-    categoryInfoId = json['categoryInfoId'];
-    categoryInfoId = json['categoryInfoId'];
-    categoryInfoId = json['categoryInfoId'];
-    categoryInfoId = json['categoryInfoId'];
+    locationColumn = json['locationColumn'];
+    stock = json['stock'];
+    imagePath = json['imagePath'];
+    isAvailable = json['isAvailable'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['productId'] = productId;
     data['name'] = name;
-    data['status'] = status;
+    data['price'] = price;
+    data['foodType'] = foodType;
+    data['categoryInfoId'] = categoryInfoId;
+    data['popupInfoId'] = popupInfoId;
+    data['locationPage'] = locationPage;
+    data['locationRow'] = locationRow;
+    data['locationColumn'] = locationColumn;
+    data['stock'] = stock;
+    data['imagePath'] = imagePath;
+    data['isAvailable'] = isAvailable;
     return data;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pos/screens/table_screen.dart';
 
 import '../models/product_model.dart';
 import '../widgets/summary_screen/summary_screen.dart';
-import '../widgets/table_screen/table_widget.dart';
 import '../widgets/tap_screen/tab_widget.dart';
 
 class MainScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 
@@ -55,7 +55,7 @@ class OrderProvider with ChangeNotifier {
     double total = 0.0;
     for (var orderDetail in orderDetailItems) {
       String productName = productList
-          .firstWhere((element) => element.id == orderDetail.productId)
+          .firstWhere((element) => element.productId == orderDetail.productId)
           .name;
       if (orderDetail.popupDetailId == 1) {
         double price = orderDetail.price * orderDetail.quantity;
@@ -143,7 +143,7 @@ class OrderProvider with ChangeNotifier {
       double totalToday = 0;
       for (var orderDetail in orderSummaryList) {
         String productName = _productItems
-            .firstWhere((element) => element.id == orderDetail.productId)
+            .firstWhere((element) => element.productId == orderDetail.productId)
             .name;
         if (orderDetail.popupDetailId == 1) {
           buffer.write(
@@ -223,7 +223,7 @@ class OrderProvider with ChangeNotifier {
   }
 
   void sendTableStatus() {
-    TableInfo tableInfo = TableInfo(name: _tableName, status: 'Free');
+    TableInfo tableInfo = TableInfo(0, _tableName, 'Free', 0);
 
     var request = jsonEncode(tableInfo.toJson());
     stompClient.send(

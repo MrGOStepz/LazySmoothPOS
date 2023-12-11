@@ -71,7 +71,6 @@ class _OverViewScreenState extends State<OverViewScreen> {
   }
 
   void _updateOrderItem() {
-    debugPrint('Hello');
     setState(() {
       Provider.of<OrderProvider>(context, listen: false).updateItem();
     });

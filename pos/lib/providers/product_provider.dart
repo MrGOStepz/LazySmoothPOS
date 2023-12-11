@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import '../models/product_model.dart';
 
 class ProductProvider with ChangeNotifier {
+  String productUrl = '/api/v1/product/all';
+  String serverEndpoint = GlobalConfiguration().get("server_endpoint");
   List<Product> _items = [];
 
   List<Product> get items {
@@ -14,12 +16,11 @@ class ProductProvider with ChangeNotifier {
   }
 
   Product findById(int id) {
-    return _items.firstWhere((item) => item.id == id);
+    return _items.firstWhere((item) => item.productId == id);
   }
 
   void fetchAndSetProducts() async {
-    final url = Uri.http(
-        GlobalConfiguration().get("server_endpoint"), '/api/v1/product/all');
+    final url = Uri.http(serverEndpoint, productUrl);
     final response = await http.get(url);
     final List<Product> loadedProduct = [];
     final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
@@ -32,6 +33,7 @@ class ProductProvider with ChangeNotifier {
             value["price"],
             value["foodType"],
             value["categoryInfoId"],
+            value["popupInfoId"],
             value["locationPage"],
             value["locationRow"],
             value["locationColumn"],

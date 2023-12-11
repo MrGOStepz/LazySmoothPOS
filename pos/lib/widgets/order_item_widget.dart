@@ -38,7 +38,7 @@ class _OrderItemWidgetState extends State<OrderItemWidget> {
 
   String _getTitle() {
     String name = widget.product
-        .firstWhere((element) => element.id == widget.productId)
+        .firstWhere((element) => element.productId == widget.productId)
         .name;
     return name;
   }
