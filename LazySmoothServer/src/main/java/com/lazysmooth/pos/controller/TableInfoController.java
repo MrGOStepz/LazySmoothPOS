@@ -21,7 +21,6 @@ public class TableInfoController extends AbstractController {
     private final TableInfoService tableInfoService;
 
     @GetMapping(path = "/all")
-    @ResponseBody
     public ResponseEntity<String> getAllTableInfo() {
         try {
             List<TableInfo> tableInfo = tableInfoService.getAll();
@@ -35,7 +34,6 @@ public class TableInfoController extends AbstractController {
     }
 
     @GetMapping(path = "/{name}")
-    @ResponseBody
     public ResponseEntity<String> getTableInfoByName(@PathVariable String name) {
         try {
             TableInfo tableInfo = tableInfoService.getTableInfo(name);
@@ -49,7 +47,6 @@ public class TableInfoController extends AbstractController {
     }
 
     @PostMapping(path = "/add")
-    @ResponseBody
     public ResponseEntity<String> addTableInfo(@RequestBody String jsonReq) {
         try {
             TableInfo request = (TableInfo) Utils.convertJsonStringToObject(jsonReq, TableInfo.class);
