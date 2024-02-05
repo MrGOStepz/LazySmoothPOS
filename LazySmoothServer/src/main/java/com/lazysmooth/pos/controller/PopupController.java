@@ -19,9 +19,7 @@ import java.util.List;
 public class PopupController extends AbstractController {
     private final PopupService popupService;
 
-
     @GetMapping(path = "/all")
-    @ResponseBody
     public ResponseEntity<String> getAllPopupInfo() {
         try {
             List<PopupInfo> popupInfo = popupService.getPopupInfoAll();
@@ -35,7 +33,6 @@ public class PopupController extends AbstractController {
     }
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public ResponseEntity<String> getPopupInfoById(@PathVariable Long id) {
         try {
             PopupInfo popupInfo = popupService.getPopupInfoById(id);
@@ -49,7 +46,6 @@ public class PopupController extends AbstractController {
     }
 
     @PostMapping(path = "/add")
-    @ResponseBody
     public ResponseEntity<String> addNewPopupInfo(@RequestBody String jsonReq) {
         try {
             PopupInfo popupInfo = (PopupInfo) Utils.convertJsonStringToObject(jsonReq, PopupInfo.class);
@@ -99,7 +95,6 @@ public class PopupController extends AbstractController {
     }
 
     @GetMapping(path = "detail/all")
-    @ResponseBody
     public ResponseEntity<String> getAllPopupDetail() {
         try {
             List<PopupDetail> popupDetail = popupService.getPopupDetailAll();
@@ -113,7 +108,6 @@ public class PopupController extends AbstractController {
     }
 
     @GetMapping(path = "detail/{id}")
-    @ResponseBody
     public ResponseEntity<String> getPopupDetailById(@PathVariable Long id) {
         try {
             PopupDetail popupDetail = popupService.getPopupDetailById(id);
@@ -127,7 +121,6 @@ public class PopupController extends AbstractController {
     }
 
     @PostMapping(path = "detail/add")
-    @ResponseBody
     public ResponseEntity<String> addNewPopupDetail(@RequestBody String jsonReq) {
         try {
             PopupDetail popupDetail = (PopupDetail) Utils.convertJsonStringToObject(jsonReq, PopupDetail.class);

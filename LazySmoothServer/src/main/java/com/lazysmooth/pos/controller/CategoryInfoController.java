@@ -19,7 +19,6 @@ class CategoryInfoController extends AbstractController {
     private final CategoryInfoService categoryInfoService;
 
     @GetMapping(path = "/all")
-    @ResponseBody
     public ResponseEntity<String> getAllCategoryInfo() {
         try {
             List<CategoryInfo> tableInfo = categoryInfoService.getAll();
@@ -34,7 +33,6 @@ class CategoryInfoController extends AbstractController {
     }
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public ResponseEntity<String> getCategoryInfoById(@PathVariable Long id) {
         try {
             CategoryInfo categoryInfo = categoryInfoService.getById(id);
@@ -49,7 +47,6 @@ class CategoryInfoController extends AbstractController {
     }
 
     @PostMapping(path = "/add")
-    @ResponseBody
     public ResponseEntity<String> addNewCategoryInfo(@RequestBody String jsonReq) {
         try {
             CategoryInfo categoryInfo = (CategoryInfo) Utils.convertJsonStringToObject(jsonReq, CategoryInfo.class);

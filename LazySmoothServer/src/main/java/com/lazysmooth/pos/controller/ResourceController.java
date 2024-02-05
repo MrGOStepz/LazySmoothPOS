@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 @RequiredArgsConstructor
 @RequestMapping(path = "/images")
 public class ResourceController extends AbstractController {
-
     @GetMapping(value = "/{name}", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getImage(@PathVariable String name) throws IOException {
         return Files.readAllBytes(Paths.get("./images/" + name));

@@ -8,7 +8,7 @@ import '../models/table_info_model.dart';
 
 class TableInfoProvider with ChangeNotifier {
   String serverEndpoint = GlobalConfiguration().get("server_endpoint");
-  String tableUrl = '/api/v1/table/all';
+  String tableUrl = '/api/v1/tableInfo/all';
   List<TableInfo> _items = [];
 
   List<TableInfo> get items {
@@ -21,28 +21,16 @@ class TableInfoProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetTableInfo() async {
-    // final url = Uri.http(serverEndpoint, tableUrl);
-    // final response = await http.get(url);
+    final url = Uri.http(serverEndpoint, tableUrl);
+    final response = await http.get(url);
     final List<TableInfo> loadedTableInfo = [];
-    // final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
-    // for (var value in extractedData) {
-    //   loadedTableInfo.add(
-    //     TableInfo(value["tableInfoId"], value["name"], value["status"],
-    //         value["orderId"]),
-    //   );
-    // }
-
-
-    //Mock Table Info
-    loadedTableInfo.add(TableInfo(1, "1", "Free", 0));
-    loadedTableInfo.add(TableInfo(2, "2", "Free", 0));
-    loadedTableInfo.add(TableInfo(3, "3", "Free", 0));
-    loadedTableInfo.add(TableInfo(4, "4", "Free", 0));
-    loadedTableInfo.add(TableInfo(5, "5", "Free", 0));
-    loadedTableInfo.add(TableInfo(6, "6", "Free", 0));
-    loadedTableInfo.add(TableInfo(7, "7", "Free", 0));
-    loadedTableInfo.add(TableInfo(8, "8", "Free", 0));
-
+    final extractedData = jsonDecode(utf8.decode(response.bodyBytes));
+    for (var value in extractedData) {
+      loadedTableInfo.add(
+        TableInfo(value["id"], value["name"], value["status"],
+            value["orderInfoId"]),
+      );
+    }
     _items = loadedTableInfo.toList();
     notifyListeners();
   }

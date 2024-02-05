@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pos/models/enum/screen_state.dart';
+import 'package:pos/providers/categories_provider.dart';
 import 'package:pos/screens/table_screen.dart';
 import 'package:pos/widgets/summary_screen/summary_screen.dart';
 import 'package:pos/widgets/tab_bar_widget.dart';
@@ -63,6 +64,8 @@ class _OverViewScreenState extends State<OverViewScreen> {
       Provider.of<ProductProvider>(context, listen: true).fetchAndSetProducts();
       Provider.of<TableInfoProvider>(context, listen: true)
           .fetchAndSetTableInfo();
+      Provider.of<CategoryProvider>(context, listen: true)
+          .fetchAndSetCategory();
     }
     _isInit = false;
 

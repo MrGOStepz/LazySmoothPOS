@@ -6,6 +6,7 @@ import 'config/app_settings.dart';
 import 'providers/order_provider.dart';
 import 'providers/product_provider.dart';
 import 'providers/tables_provider.dart';
+import 'providers/categories_provider.dart';
 import 'screens/over_view_screen.dart';
 
 void main() {
@@ -28,6 +29,9 @@ class CashierApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: TableInfoProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: CategoryProvider(),
         ),
       ],
       child: MaterialApp(

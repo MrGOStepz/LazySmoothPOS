@@ -20,7 +20,6 @@ public class ProductController extends AbstractController {
     private final ProductService productService;
 
     @GetMapping(path = "/all")
-    @ResponseBody
     public ResponseEntity<String> getAllProduct() {
         try {
             List<Product> productList = productService.getAll();
@@ -34,7 +33,6 @@ public class ProductController extends AbstractController {
     }
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public ResponseEntity<String> getProductById(@PathVariable Long id) {
         try {
             Product product = productService.getById(id);
@@ -48,7 +46,6 @@ public class ProductController extends AbstractController {
     }
 
     @PostMapping(path = "/add")
-    @ResponseBody
     public ResponseEntity<String> addNewProduct(@RequestBody String jsonReq) {
         try {
             Product product = (Product) Utils.convertJsonStringToObject(jsonReq, Product.class);

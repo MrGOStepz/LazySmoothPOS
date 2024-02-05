@@ -23,7 +23,6 @@ public class OrderController extends AbstractController {
     static final String CAN_NOT_CONVERT_OBJECT = "Cannot convert Object from Request: %s.";
 
     @GetMapping(path = "/all")
-    @ResponseBody
     public ResponseEntity<String> getAllOrderInfo() {
         try {
             List<OrderInfo> tableInfo = orderService.getOrderInfoAll();
@@ -37,7 +36,6 @@ public class OrderController extends AbstractController {
     }
 
     @GetMapping(path = "/{id}")
-    @ResponseBody
     public ResponseEntity<String> getOrderInfoById(@PathVariable Long id) {
         try {
             OrderInfo orderInfo = orderService.getOrderInfoById(id);
@@ -51,7 +49,6 @@ public class OrderController extends AbstractController {
     }
 
     @PostMapping(path = "/add")
-    @ResponseBody
     public ResponseEntity<String> addNewOrderInfo(@RequestBody String jsonReq) {
         try {
             OrderInfo orderInfo = (OrderInfo) Utils.convertJsonStringToObject(jsonReq, OrderInfo.class);
@@ -101,7 +98,6 @@ public class OrderController extends AbstractController {
     }
 
     @GetMapping(path = "detail/all")
-    @ResponseBody
     public ResponseEntity<String> getAllOrderDetail() {
         try {
             List<OrderInfo> tableInfo = orderService.getOrderInfoAll();
@@ -115,7 +111,6 @@ public class OrderController extends AbstractController {
     }
 
     @GetMapping(path = "detail/{id}")
-    @ResponseBody
     public ResponseEntity<String> getOrderDetailById(@PathVariable Long id) {
         try {
             OrderInfo orderInfo = orderService.getOrderInfoById(id);
@@ -129,7 +124,6 @@ public class OrderController extends AbstractController {
     }
 
     @PostMapping(path = "detail/add")
-    @ResponseBody
     public ResponseEntity<String> addNewOrderDetail(@RequestBody String jsonReq) {
         try {
             OrderInfo orderInfo = (OrderInfo) Utils.convertJsonStringToObject(jsonReq, OrderInfo.class);
@@ -179,7 +173,6 @@ public class OrderController extends AbstractController {
     }
 
     @PostMapping(path = "/order")
-    @ResponseBody
     public ResponseEntity<String> addNewOrder(@RequestBody String jsonReq) {
         try {
             OrderRequest orderRequest = (OrderRequest) Utils.convertJsonStringToObject(jsonReq, OrderRequest.class);
@@ -198,7 +191,6 @@ public class OrderController extends AbstractController {
     }
 
     @GetMapping(path = "/cook")
-    @ResponseBody
     public ResponseEntity<String> getCookOrder() {
         try {
             List<OrderResponse> orderResponses = orderService.getListOrderCook();
@@ -212,7 +204,6 @@ public class OrderController extends AbstractController {
     }
 
     @GetMapping(path = "/table/{tableName}")
-    @ResponseBody
     public ResponseEntity<String> getOrderByTableName(@PathVariable String tableName) {
         try {
             OrderDetailInfoResponse orderDetailInfoResponses = orderService.getListOrderByTableName(tableName);
