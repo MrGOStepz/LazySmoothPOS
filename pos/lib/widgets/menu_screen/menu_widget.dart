@@ -10,8 +10,17 @@ class MenuWidget extends StatefulWidget {
 class _MenuWidgetState extends State<MenuWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-     children: [
+    SliverGridDelegate gridDelegate =
+    const SliverGridDelegateWithMaxCrossAxisExtent(
+      maxCrossAxisExtent: 200,
+      childAspectRatio: 3 / 2,
+      crossAxisSpacing: 20,
+      mainAxisSpacing: 20,
+    );
+    return Column(
+     children: [Text("Search"),
+       Text("Category"),
+       Text("ListMenu")
      ],
     );
   }

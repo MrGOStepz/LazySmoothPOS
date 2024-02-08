@@ -6,7 +6,18 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MenuWidget();
+    return Row(
+      children: [
+        Expanded(
+          flex: 8,
+          child: MenuWidget(),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text("Order"),
+        ),
+      ],
+    );
   }
 }
 
