@@ -7,16 +7,17 @@ import 'package:http/http.dart' as http;
 import '../models/category_model.dart';
 
 class CategoryProvider with ChangeNotifier {
-  String serverEndpoint = GlobalConfiguration().get("server_endpoint");
-  String categoryUrl = '/api/v1/categoryInfo/all';
+  final String _serverEndpoint = GlobalConfiguration().get("server_endpoint");
+  final String _categoryUrl = '/api/v1/categoryInfo/all';
+
   List<Category> _items = [];
 
   List<Category> get items {
-    return [..._items];
+    return _items;
   }
 
   Future<void> fetchAndSetCategory() async {
-    final url = Uri.http(serverEndpoint, categoryUrl);
+    final url = Uri.http(_serverEndpoint, _categoryUrl);
     final response = await http.get(url);
     final List<Category> loadedCategory = [];
     final extractedData = jsonDecode(utf8.decode(response.bodyBytes));

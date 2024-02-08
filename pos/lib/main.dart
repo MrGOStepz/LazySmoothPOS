@@ -7,7 +7,7 @@ import 'providers/order_provider.dart';
 import 'providers/product_provider.dart';
 import 'providers/tables_provider.dart';
 import 'providers/categories_provider.dart';
-import 'screens/over_view_screen.dart';
+import 'screens/overview_screen.dart';
 
 void main() {
   GlobalConfiguration().loadFromMap(appSettings);

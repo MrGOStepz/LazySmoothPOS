@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pos/widgets/table_screen/table_widget.dart';
-import 'package:provider/provider.dart';
-
-import '../../models/table_info_model.dart';
-import '../../providers/tables_provider.dart';
 
 
 class TableScreen extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pos/models/enum/screen_state.dart';
 import 'package:pos/providers/categories_provider.dart';
+import 'package:pos/screens/dashboard_screen.dart';
 import 'package:pos/screens/menu_screen.dart';
 import 'package:pos/screens/table_screen.dart';
-import 'package:pos/widgets/summary_screen/summary_screen.dart';
 import 'package:pos/widgets/tab_bar_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -80,6 +80,7 @@ class _OverViewScreenState extends State<OverViewScreen> {
   }
 
   void _changeScreenState(ScreenState screenState) {
+    debugPrint("State: ${screenState.name}");
     setState(() {
       _screenState = screenState;
     });
@@ -89,12 +90,14 @@ class _OverViewScreenState extends State<OverViewScreen> {
     Widget screen;
     if (_screenState == ScreenState.tableScreen) {
       screen = TableScreen();
-    }
-    if (_screenState == ScreenState.menuScreen) {
+    } else if (_screenState == ScreenState.menuScreen) {
       screen = MenuScreen();
+    } else if (_screenState == ScreenState.dashboardScreen) {
+      screen = DashboardScreen();
     } else {
-      screen = SummaryScreen();
+      screen = TableScreen();
     }
+
     return Expanded(
       flex: 9,
       child: SizedBox(
