@@ -21,13 +21,15 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     return Consumer<OrderProvider>(
       builder: (ctx, order, _) => ListView.builder(
-          itemCount: order.orderDetailItemLength,
-          itemBuilder: (ctx, i) => OrderItemWidget(
-              product: widget.productList,
-              productId: order.orderDetailItems[i].productId,
-              orderDetailId: order.orderDetailItems[i].orderDetailId,
-              popupDetailId: order.orderDetailItems[i].popupDetailId,
-              quantity: order.orderDetailItems[i].quantity)),
+        itemCount: order.orderDetailItemLength,
+        itemBuilder: (ctx, i) => OrderItemWidget(
+          product: widget.productList,
+          productId: order.orderDetailItems[i].productId,
+          orderDetailId: order.orderDetailItems[i].orderDetailId,
+          popupDetailId: order.orderDetailItems[i].popupDetailId,
+          quantity: order.orderDetailItems[i].quantity,
+        ),
+      ),
       // builder: (ctx, order, _) => Text(
       //   order.getOrderDetailText(productList),
       //   style: TextStyle(fontSize: 20),

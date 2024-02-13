@@ -92,6 +92,8 @@ class _OverViewScreenState extends State<OverViewScreen> {
       screen = TableScreen();
     } else if (_screenState == ScreenState.menuScreen) {
       screen = MenuScreen();
+    } else if (_screenState == ScreenState.kitchen) {
+      screen = DashboardScreen();
     } else if (_screenState == ScreenState.dashboardScreen) {
       screen = DashboardScreen();
     } else {

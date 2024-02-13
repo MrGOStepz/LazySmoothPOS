@@ -35,6 +35,13 @@ class TabBarWidget extends StatelessWidget {
           flex: 1,
           child: TextButton(
             onPressed: () => screenState(ScreenState.dashboardScreen),
+            child: const Text('Kitchen'),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: TextButton(
+            onPressed: () => screenState(ScreenState.dashboardScreen),
             child: const Text('Dashboard'),
           ),
         ),
